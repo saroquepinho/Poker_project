@@ -16,8 +16,23 @@ class PokerHand:
     def __str__(self):
         return str(self.cards)
 
-deck = Deck()
-deck.shuffle()
-hand = PokerHand(deck)
-print(hand)
+    @property
+    def is_flush(self):
+        for card in self.cards[1:]:
+            if self.cards[0].suit != card.suit:
+                return False
+        return True
+
+
+count = 0
+flushes = 0
+while flushes < 100:
+    deck = Deck()
+    deck.shuffle()
+    hand = PokerHand(deck)
+    if hand.is_flush:
+        flushes += 1
+    count += 1
+
+print(f"probability of a flush is {100*flushes/count}%")
 
